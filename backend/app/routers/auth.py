@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
@@ -25,6 +26,18 @@ def register_patient(payload: PatientRegisterRequest, db: Session = Depends(get_
 
 @router.post("/login", response_model=TokenResponse)
 def login(payload: LoginRequest, db: Session = Depends(get_db)):
+    return auth_service.login(db, payload)
+
+@router.post("/token", response_model=TokenResponse)
+def login_for_swagger(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(get_db),
+):
+    payload = LoginRequest(
+        email=form_data.username,
+        password=form_data.password,
+    )
+
     return auth_service.login(db, payload)
 
 

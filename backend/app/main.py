@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.exc import IntegrityError
 
 from app.core.config import settings
@@ -48,9 +49,11 @@ def handle_integrity_error(request: Request, exc: IntegrityError):
 def handle_validation_error(request: Request, exc: RequestValidationError):
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content={"detail": "Validation error", "errors": exc.errors()},
+        content={
+            "detail": "Validation error",
+            "errors": jsonable_encoder(exc.errors()),
+        },
     )
-
 
 app.include_router(auth.router)
 app.include_router(patients.router)
