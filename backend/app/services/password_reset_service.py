@@ -24,7 +24,7 @@ def send_reset_email(email: str, token: str) -> None:
     """
 
     reset_link = (
-        f"http://localhost:5173/reset-password?token={token}"
+        f"{settings.FRONTEND_URL}/reset-password?token={token}"
     )
 
     message = EmailMessage()
