@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-surface text-ink font-sans antialiased;
+}
+
+::selection {
+  @apply bg-accent-100;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c9c4b6 transparent;
+}
+
+:focus-visible {
+  outline: 2px solid #0e4f49;
+  outline-offset: 2px;
+}
+
+.card {
+  @apply bg-panel border border-line rounded-card shadow-card;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none;
+}
+
+.btn-primary {
+  @apply btn bg-primary-600 text-white hover:bg-primary-700;
+}
+
+.btn-secondary {
+  @apply btn bg-primary-50 text-primary-700 hover:bg-primary-100;
+}
+
+.btn-outline {
+  @apply btn border border-line bg-panel text-ink hover:bg-surface;
+}
+
+.btn-danger {
+  @apply btn bg-danger text-white hover:opacity-90;
+}
+
+.input {
+  @apply w-full rounded-md border border-line bg-panel px-3 py-2 text-sm text-ink placeholder:text-ink/40 focus:border-primary-400 focus:outline-none focus:ring-1 focus:ring-primary-400;
+}
+
+.label {
+  @apply mb-1 block text-xs font-medium uppercase tracking-wide text-ink/60;
+}
+
+.badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+}
